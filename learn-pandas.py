@@ -145,6 +145,7 @@ def times2(x):
 
 op['col1'].apply(times2) #Apply function to column
 op['col3'].apply(len) #Apply len function to column
+op['col1'].apply(lambda x: x*2) #Apply lambda function to column
 op['col1'].sum() #Sum of column
 del op['col1'] #Delete column
 op.columns #Columns
