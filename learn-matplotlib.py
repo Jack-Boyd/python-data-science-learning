@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from random import sample
 
 x = np.linspace(0, 5, 11)
 y = x ** 2
@@ -13,7 +14,7 @@ plt.show()
 plt.subplot(1,2,1)
 plt.plot(x, y, 'r--') # More on color options later
 plt.subplot(1,2,2)
-plt.plot(y, x, 'g*-');
+plt.plot(y, x, 'g*-')
 plt.show() 
 
 # Using OOP Method
@@ -48,3 +49,100 @@ for ax in axes:
 
 plt.tight_layout() # To prevent overlapping subplots that manually set axes cause
 
+# Figure size, aspect ratio and DPI are able to be controlled
+fig = plt.figure(figsize=(8,4), dpi=100)
+fig, axes = plt.subplots(figsize=(12,3))
+
+axes.plot(x, y, 'r')
+axes.set_xlabel('x')
+axes.set_ylabel('y')
+axes.set_title('title')
+
+# Save figure as image file
+fig.savefig("filename.png", dpi=200)
+
+
+# Titles, Axis labels and legends 
+ax.set_title("title")
+ax.set_xlabel("x")
+ax.set_ylabel("y")
+fig = plt.figure()
+ax = fig.add_axes([0,0,1,1])
+
+ax.plot(x, x**2, label="x**2")
+ax.plot(x, x**3, label="x**3")
+ax.legend()
+# Lots of options....
+ax.legend(loc=1) # upper right corner
+ax.legend(loc=2) # upper left corner
+ax.legend(loc=3) # lower left corner
+ax.legend(loc=4) # lower right corner
+# .. many more options are available
+# Most common to choose
+ax.legend(loc=0) # let matplotlib decide the optimal location
+
+
+# Customisation examples in matplotlib
+# MATLAB style line color and style 
+fig, ax = plt.subplots()
+ax.plot(x, x**2, 'b.-') # blue line with dots
+ax.plot(x, x**3, 'g--') # green dashed line
+fig, ax = plt.subplots()
+
+ax.plot(x, x+1, color="blue", alpha=0.5) # half-transparant
+ax.plot(x, x+2, color="#8B008B")        # RGB hex code
+ax.plot(x, x+3, color="#FF8C00")        # RGB hex code 
+fig, ax = plt.subplots(figsize=(12,6))
+
+ax.plot(x, x+1, color="red", linewidth=0.25)
+ax.plot(x, x+2, color="red", linewidth=0.50)
+ax.plot(x, x+3, color="red", linewidth=1.00)
+ax.plot(x, x+4, color="red", linewidth=2.00)
+
+# possible linestype options ‘-‘, ‘–’, ‘-.’, ‘:’, ‘steps’
+ax.plot(x, x+5, color="green", lw=3, linestyle='-')
+ax.plot(x, x+6, color="green", lw=3, ls='-.')
+ax.plot(x, x+7, color="green", lw=3, ls=':')
+
+# custom dash
+line, = ax.plot(x, x+8, color="black", lw=1.50)
+line.set_dashes([5, 10, 15, 10]) # format: line length, space length, ...
+
+# possible marker symbols: marker = '+', 'o', '*', 's', ',', '.', '1', '2', '3', '4', ...
+ax.plot(x, x+ 9, color="blue", lw=3, ls='-', marker='+')
+ax.plot(x, x+10, color="blue", lw=3, ls='--', marker='o')
+ax.plot(x, x+11, color="blue", lw=3, ls='-', marker='s')
+ax.plot(x, x+12, color="blue", lw=3, ls='--', marker='1')
+
+# marker size and color
+ax.plot(x, x+13, color="purple", lw=1, ls='-', marker='o', markersize=2)
+ax.plot(x, x+14, color="purple", lw=1, ls='-', marker='o', markersize=4)
+ax.plot(x, x+15, color="purple", lw=1, ls='-', marker='o', markersize=8, markerfacecolor="red")
+ax.plot(x, x+16, color="purple", lw=1, ls='-', marker='s', markersize=8, 
+        markerfacecolor="yellow", markeredgewidth=3, markeredgecolor="green")
+
+fig, axes = plt.subplots(1, 3, figsize=(12, 4))
+
+axes[0].plot(x, x**2, x, x**3)
+axes[0].set_title("default axes ranges")
+
+axes[1].plot(x, x**2, x, x**3)
+axes[1].axis('tight')
+axes[1].set_title("tight axes")
+
+axes[2].plot(x, x**2, x, x**3)
+axes[2].set_ylim([0, 60])
+axes[2].set_xlim([2, 5])
+axes[2].set_title("custom axes range");
+
+
+
+#Special plot types
+plt.scatter(x,y)
+
+data = sample(range(1, 1000), 100)
+plt.hist(data)
+
+data = [np.random.normal(0, std, 100) for std in range(1, 4)]
+# rectangular box plot
+plt.boxplot(data,vert=True,patch_artist=True);   
